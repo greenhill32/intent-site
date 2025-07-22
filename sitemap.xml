@@ -10,7 +10,7 @@
   </url>
 
   <url>
-    <loc>https://your-site-url.com/status.json</loc>
+    <loc>https://publicbucket3222.blob.core.windows.net/$web/status.json</loc>
     <priority>0.8</priority>
     <changefreq>hourly</changefreq>
   </url>
