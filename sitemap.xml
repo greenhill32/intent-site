@@ -4,7 +4,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
-    <loc>https://your-site-url.com/</loc>
+    <loc>https://publicbucket3222.blob.core.windows.net/$web/</loc>
     <priority>1.0</priority>
     <changefreq>daily</changefreq>
   </url>
@@ -16,8 +16,14 @@
   </url>
 
   <url>
-    <loc>https://your-site-url.com/agent.json</loc>
+    <loc>https://publicbucket3222.blob.core.windows.net/$web/agent.json</loc>
     <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://publicbucket3222.blob.core.windows.net/$web/index.html</loc>
+    <priority>0.7</priority>
     <changefreq>weekly</changefreq>
   </url>
 
