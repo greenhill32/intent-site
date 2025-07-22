@@ -1,0 +1,21 @@
+{
+  "site": "https://publicbucket3222.blob.core.windows.net/$web/index.html",
+  "intents": [
+    {
+      "name": "get_status",
+      "description": "Retrieve current availability and message",
+      "method": "GET",
+      "endpoint": "/index.html"
+    },
+    {
+      "name": "set_status",
+      "description": "Manually update status by uploading a new file or calling an external API",
+      "method": "POST",
+      "endpoint": "/update (simulated)"
+    }
+  ],
+  "author": {
+    "name": "Alex Rivers",
+    "email": "optional@example.com"
+  }
+}

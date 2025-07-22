@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Status Page</title>
+  <meta name="description" content="AI-accessible status page for real-time availability.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f6f8fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1rem;
+    }
+    .card {
+      background: white;
+      border-radius: 1.5rem;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+      padding: 2rem;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+    .status {
+      font-size: 1.5rem;
+      margin: 0.5rem 0;
+    }
+    .emoji {
+      font-size: 2rem;
+    }
+    .timestamp {
+      font-size: 0.875rem;
+      color: #666;
+    }
+    .message {
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      font-style: italic;
+    }
+    form {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    input, select, button {
+      padding: 0.6rem;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #0078d4;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #005fa3;
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Alex Rivers",
+    "jobTitle": "AI Interaction Node",
+    "url": "https://you.agent.page/status",
+    "status": "Busy",
+    "description": "In meetings until 3:00 PM.",
+    "lastUpdated": "2025-07-22T13:00:00Z"
+  }
+  </script>
+</head>
+<body>
+  <div class="card">
+    <div class="emoji" id="emoji">🔴</div>
+    <h2>Status</h2>
+    <p class="status">Alex Rivers is currently <strong id="status">Loading...</strong></p>
+    <p class="timestamp" id="timestamp">Loading timestamp...</p>
+    <p class="message" id="message">Loading message...</p>
+
+    <form id="statusForm">
+      <select id="newStatus">
+        <option value="Available">🟢 Available</option>
+        <option value="Busy">🔴 Busy</option>
+      </select>
+      <input type="text" id="newMessage" placeholder="Status message (e.g. Back at 3PM)" />
+      <input type="text" id="updatedBy" placeholder="Your name (e.g. Alex)" />
+      <button type="submit">Update Locally</button>
+    </form>
+  </div>
+
+  <script>
+    const emojiEl = document.getElementById('emoji');
+    const statusEl = document.getElementById('status');
+    const timestampEl = document.getElementById('timestamp');
+    const messageEl = document.getElementById('message');
+
+    fetch('status.json')
+      .then(res => res.json())
+      .then(data => {
+        const emoji = data.status.toLowerCase() === 'available' ? '🟢' : '🔴';
+        emojiEl.textContent = emoji;
+        statusEl.textContent = data.status;
+        timestampEl.textContent = `Last updated: ${new Date(data.timestamp).toLocaleString()} by ${data.updated_by}`;
+        messageEl.textContent = `"${data.message}"`;
+      });
+
+    document.getElementById('statusForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const newStatus = document.getElementById('newStatus').value;
+      const newMessage = document.getElementById('newMessage').value;
+      const updatedBy = document.getElementById('updatedBy').value;
+      const now = new Date().toISOString();
+
+      // Simulate update locally
+      emojiEl.textContent = newStatus === 'Available' ? '🟢' : '🔴';
+      statusEl.textContent = newStatus;
+      timestampEl.textContent = `Last updated: ${new Date(now).toLocaleString()} by ${updatedBy}`;
+      messageEl.textContent = `"${newMessage}"`;
+
+      // (Future) POST to Azure Function or update blob
+      console.log('Simulated POST:', {
+        status: newStatus,
+        message: newMessage,
+        updated_by: updatedBy,
+        timestamp: now
+      });
+    });
+  </script>
+</body>
+</html>
