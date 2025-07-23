@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intent-Layer: Agent-Readable Web Protocol</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #111;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      font-weight: 600;
+      margin-top: 2rem;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: monospace;
+      background: #eee;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+    }
+    a {
+      color: #007acc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    hr {
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Intent-Layer: A Minimal Protocol for Agent-Readable Websites</h1>
+  <p><strong>Author:</strong> Lee Manley<br>
+  <strong>Spec URL:</strong> <a href="https://intent-web.io">https://intent-web.io</a><br>
+  <strong>Repo:</strong> <a href="https://github.com/greenhill32/intent-site">https://github.com/greenhill32/intent-site</a><br>
+  <strong>Version:</strong> Draft 001</p>
+
+  <hr>
+
+  <h2>🧭 Purpose</h2>
+  <p>The <strong>Intent Layer</strong> is a lightweight convention for exposing machine-readable intents on websites. It allows AI agents like ChatGPT, Claude, or Grok to:</p>
+  <ul>
+    <li>Understand what actions a site supports</li>
+    <li>Fetch structured, real-time status</li>
+    <li>(Eventually) trigger those actions securely</li>
+  </ul>
+  <p>Inspired by API manifests like <code>package.json</code> or <code>openapi.yaml</code>, this is a minimal format optimized for read-only crawling.</p>
+
+  <h2>🧱 Structure</h2>
+
+  <h3>agent.json</h3>
+  <p>A flat JSON manifest describing supported actions:</p>
+  <pre><code>{
+  "name": "get_status",
+  "method": "GET",
+  "endpoint": "/status.json"
+}</code></pre>
+
+  <p>You can also support multiple intents:</p>
+  <pre><code>[
+  { "name": "get_status", "method": "GET", "endpoint": "/status.json" },
+  { "name": "book", "method": "POST", "endpoint": "/api/book" }
+]</code></pre>
+
+  <h3>status.json</h3>
+  <p>Structured data that reflects dynamic or real-time state — such as availability, offers, or links:</p>
+  <pre><code>{
+  "available": true,
+  "message": "Currently accepting new projects",
+  "booking_url": "https://cal.com/lee"
+}</code></pre>
+
+  <h3>Optional: Schema.org Support</h3>
+  <p>Use semantic HTML tags or embedded JSON-LD to enhance AI understanding. For example:</p>
+  <pre><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Lee Manley",
+  "url": "https://intent-web.io"
+}
+&lt;/script&gt;</code></pre>
+
+  <h2>🧠 Real-World Use Case: Creator Agent</h2>
+  <p>Imagine an AI that wants to:</p>
+  <ol>
+    <li>Visit your site</li>
+    <li>Read <code>agent.json</code> to learn you support bookings</li>
+    <li>Fetch <code>status.json</code> to check availability</li>
+    <li>Present that to a user</li>
+  </ol>
+  <p>It all works without scraping, parsing, or guesswork.</p>
+
+  <h2>🌐 Goal</h2>
+  <p>Let the web become <strong>agent-actionable by default</strong> — with zero backend or complex APIs. If you can host a static file, you can support AI.</p>
+  <p>This is just the beginning.</p>
+
+  <hr>
+  <p>For updates, follow <a href="https://twitter.com/leemanley">@leemanley</a> and visit <a href="https://intent-web.io">intent-web.io</a>.</p>
+</body>
+</html>
