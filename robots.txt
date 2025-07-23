@@ -1,1 +1,4 @@
-Sitemap: https://publicbucket3222.blob.core.windows.net/$web/sitemap.xml
+User-agent: *
+Allow: /
+
+Sitemap: https://intent-web.io/sitemap.xml
