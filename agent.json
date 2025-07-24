@@ -1,21 +1,24 @@
 {
-  "site": "https://publicbucket3222.blob.core.windows.net/$web/index.html",
   "intents": [
     {
-      "name": "get_status",
-      "description": "Retrieve current availability and message",
-      "method": "GET",
-      "endpoint": "/index.html"
-    },
-    {
-      "name": "set_status",
-      "description": "Manually update status by uploading a new file or calling an external API",
-      "method": "POST",
-      "endpoint": "/update (simulated)"
+      "name": "queue_social_post",
+      "description": "Queue a message for email delivery",
+      "parameters": {
+        "platform": {
+          "type": "string",
+          "description": "Where this message is going (e.g. email, X)",
+          "required": true
+        },
+        "message": {
+          "type": "string",
+          "description": "The message content to deliver",
+          "required": true
+        }
+      },
+      "endpoint": {
+        "method": "POST",
+        "url": "https://hook.eu2.make.com/3yd346u7vsea33ls79r55kwgg34kikdq"
+      }
     }
-  ],
-  "author": {
-    "name": "Alex Rivers",
-    "email": "optional@example.com"
-  }
+  ]
 }
