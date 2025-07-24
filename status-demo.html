@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Status Demo</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 3rem;
+    }
+    #status {
+      font-size: 2rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🤖 AI-Controlled Status Page</h1>
+  <div id="status">Status: Offline ⛔</div>
+
+  <script>
+    fetch("status.json")
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("status").textContent = `Status: ${data.status}`;
+      })
+      .catch(() => {
+        document.getElementById("status").textContent = "Status: Offline ⛔";
+      });
+  </script>
+</body>
+</html>
